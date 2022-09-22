@@ -12,8 +12,9 @@ extends Node2D
 #NODES
 onready var wrld : TileMap = $World
 onready var cam : Camera2D = $View
-onready var play : TextureButton = $UI/MainUI/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Play
-onready var gen_amount : Label = $UI/MainUI/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/HBoxContainer/GenAmount
+onready var play : TextureButton = $MainUI/MainUI/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Play
+onready var gen_amount : Label = $MainUI/MainUI/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/HBoxContainer/GenAmount
+onready var top_ui : CanvasLayer = $TopUI
 
 
 #CONTANTS
@@ -21,6 +22,7 @@ var play_textures : Array = [
 	preload("res://src/assets/icons/play_72px.png"),
 	preload("res://src/assets/icons/stop_72px.png")
 ]
+var menu_loaded : bool = false
 
 
 #VARIABLES
@@ -67,6 +69,11 @@ func _unhandled_input(event):
 				KEY_SPACE:
 					#Advances by one Gen
 					self.set_physics_process(true)
+				KEY_C:
+					#Clearing Grid
+					running = true
+					_on_Play_pressed()
+					self.ClearGrid()
 
 
 func _physics_process(var _delta : float):
@@ -111,12 +118,16 @@ func BirthCell(var pos : Vector2) -> void:
 
 func AddCell(var pos : Vector2) -> void:
 	#Adds the cell directly and doesn't need to wait for next gen
+	gen = 1
+	gen_amount.set_text(str(gen))
 	living_cells.push_back(pos)
 	wrld.set_cellv(pos,0)
 
 
 func DeleteCell(var pos : Vector2) -> void:
 	#Deletes the living cell without waiting for the next generation
+	gen = 1
+	gen_amount.set_text(str(gen))
 	wrld.set_cellv(pos,-1)
 	living_cells.erase(pos)
 
@@ -165,13 +176,20 @@ func GetNeighbours(var pos : Vector2) -> int:
 	return neighbours
 
 
+func ClearGrid() -> void:
+	birthed_cells.resize(0)
+	killed_cells.resize(0)
+	living_cells.clear()
+	wrld.clear()
+
+
 func _draw():
 	var size = get_viewport_rect().size  * cam.zoom / 2
 	var cam_pos = cam.offset
 	for i in range(int((cam_pos.x - size.x) / 1) - 1, int((size.x + cam_pos.x) / 1) + 1):
-		draw_line(Vector2(i * 1, cam_pos.y + size.y + 100), Vector2(i * 1, cam_pos.y - size.y - 100), "111111")
+		draw_line(Vector2(i * 1, cam_pos.y + size.y + 100), Vector2(i * 1, cam_pos.y - size.y - 100), "222222")
 	for i in range(int((cam_pos.y - size.y) / 1) - 1, int((size.y + cam_pos.y) / 1) + 1):
-		draw_line(Vector2(cam_pos.x + size.x + 100, i * 1), Vector2(cam_pos.x - size.x - 100, i * 1), "111111")
+		draw_line(Vector2(cam_pos.x + size.x + 100, i * 1), Vector2(cam_pos.x - size.x - 100, i * 1), "222222")
 
 
 func _on_Start_pressed():
@@ -189,4 +207,21 @@ func _on_Play_pressed():
 	running = !running
 	self.set_physics_process(running)
 	play.texture_normal = play_textures[int(running)]
+
+
+func _on_NextGen_pressed():
+	self.set_physics_process(true)
+
+
+func _on_Settings_pressed():
+	#Stopping Simulation
+	running = true
+	_on_Play_pressed()
+	cam.set_process(false)
+	cam.set_process_input(false)
 	
+	#Loading Menu
+	var menu : Control = load("res://src/scenes/Menu.tscn").instance()
+	var _err = menu.connect("tree_exited",cam,"set_process",[true])
+	_err = menu.connect("tree_exited",cam,"set_process_input",[true])
+	top_ui.add_child(menu)

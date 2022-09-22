@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/assets/fonts/Raleway-ExtraBold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/scenes/Menu.gd" type="Script" id=2]
+[ext_resource path="res://src/assets/Shaders/Blur.tres" type="Material" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="Blur" type="ColorRect"]
+material = ExtResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Menu" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="PanelContainer" type="PanelContainer" parent="Menu"]
+margin_left = 212.0
+margin_top = 112.0
+margin_right = 812.0
+margin_bottom = 487.0
+rect_min_size = Vector2( 600, 375 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/PanelContainer"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 599.0
+margin_bottom = 374.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Header" type="HBoxContainer" parent="Menu/PanelContainer/VBoxContainer"]
+margin_right = 598.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Patterns" type="Button" parent="Menu/PanelContainer/VBoxContainer/Header"]
+margin_left = 182.0
+margin_top = 5.0
+margin_right = 257.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 75, 30 )
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "Patterns"
+
+[node name="Shortcuts" type="Button" parent="Menu/PanelContainer/VBoxContainer/Header"]
+margin_left = 261.0
+margin_top = 5.0
+margin_right = 336.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 75, 30 )
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "Shorcuts"
+
+[node name="Credits" type="Button" parent="Menu/PanelContainer/VBoxContainer/Header"]
+margin_left = 340.0
+margin_top = 5.0
+margin_right = 415.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 75, 30 )
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "Credits"
+
+[node name="HSeparator" type="HSeparator" parent="Menu/PanelContainer/VBoxContainer"]
+margin_top = 44.0
+margin_right = 598.0
+margin_bottom = 48.0
+
+[node name="Option" type="VBoxContainer" parent="Menu/PanelContainer/VBoxContainer"]
+margin_top = 52.0
+margin_right = 598.0
+margin_bottom = 373.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
