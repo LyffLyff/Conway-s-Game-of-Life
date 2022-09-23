@@ -34,8 +34,18 @@ var cells_to_check : Array = []
 var living_cells : Array = []
 
 
+func _draw():
+	var size = get_viewport_rect().size  * cam.zoom / 2
+	var cam_pos = cam.offset
+	var neg_diff : Vector2 = cam_pos - size
+	var pos_diff : Vector2 = cam_pos + size
+	for i in range(neg_diff.x - 1, pos_diff.x + 1):
+		draw_line(Vector2(i * 1, pos_diff.y + 100), Vector2(i * 1, neg_diff.y - 100), "222222")
+	for i in range(neg_diff.y - 1, pos_diff.y + 1):
+		draw_line(Vector2(pos_diff.x + 100, i * 1), Vector2(neg_diff.x - 100, i * 1), "222222")
+
+
 func _ready():
-	
 	self.set_physics_process(false)
 
 
@@ -46,6 +56,7 @@ func _unhandled_input(event):
 			#Therefore the global mouse position is the actual tile
 			#but it's more accurate withz it sooooooo
 			#Draw with mouse
+			return
 			AddCell( wrld.world_to_map( get_global_mouse_position() ) )
 		elif Input.is_mouse_button_pressed(BUTTON_RIGHT):
 			var clicked_cell : Vector2 = wrld.world_to_map( get_global_mouse_position() )
@@ -74,6 +85,11 @@ func _unhandled_input(event):
 					running = true
 					_on_Play_pressed()
 					self.ClearGrid()
+
+
+func _process(var delta : float):
+	if Input.is_action_pressed("AddCell"):
+		AddCell( wrld.world_to_map( get_global_mouse_position() ) )
 
 
 func _physics_process(var _delta : float):
@@ -170,7 +186,7 @@ func GetNeighbours(var pos : Vector2) -> int:
 		for y in range(-1,2,1):
 			if x == 0 && y == 0:
 				continue;
-			
+				
 			if wrld.get_cell(pos.x + x, pos.y + y) != -1:
 				neighbours += 1
 	return neighbours
@@ -181,15 +197,6 @@ func ClearGrid() -> void:
 	killed_cells.resize(0)
 	living_cells.clear()
 	wrld.clear()
-
-
-func _draw():
-	var size = get_viewport_rect().size  * cam.zoom / 2
-	var cam_pos = cam.offset
-	for i in range(int((cam_pos.x - size.x) / 1) - 1, int((size.x + cam_pos.x) / 1) + 1):
-		draw_line(Vector2(i * 1, cam_pos.y + size.y + 100), Vector2(i * 1, cam_pos.y - size.y - 100), "222222")
-	for i in range(int((cam_pos.y - size.y) / 1) - 1, int((size.y + cam_pos.y) / 1) + 1):
-		draw_line(Vector2(cam_pos.x + size.x + 100, i * 1), Vector2(cam_pos.x - size.x - 100, i * 1), "222222")
 
 
 func _on_Start_pressed():

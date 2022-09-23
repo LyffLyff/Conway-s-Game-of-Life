@@ -39,7 +39,7 @@ adjustment_saturation = 0.01
 script = ExtResource( 2 )
 
 [node name="World" type="TileMap" parent="."]
-modulate = Color( 1.4, 1.4, 1.4, 1 )
+modulate = Color( 1.42353, 0.627451, 0.32549, 1 )
 tile_set = SubResource( 1 )
 cell_size = Vector2( 1, 1 )
 cell_quadrant_size = 1
@@ -168,6 +168,7 @@ margin_bottom = 54.0
 rect_min_size = Vector2( 120, 50 )
 size_flags_vertical = 4
 min_value = 1.0
+max_value = 2000.0
 value = 1.0
 align = 1
 suffix = "Gen/s"

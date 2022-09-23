@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/assets/fonts/SmallText.tres" type="DynamicFont" id=1]
+
+[node name="Credits" type="RichTextLabel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 1 )
+bbcode_enabled = true
+bbcode_text = "
+[center]Creator: LyffLyff
+
+Assets:
+Icons by [url=https://roundicons.com/]roundicons[/url]
+Blur Shader by [url=https://godotshaders.com/shader/simple-blur/]shellrider[/url]
+
+Fonts:
+OpenSans
+Raleway
+
+Engine:
+[url=godotengine.org/license]Godot Engine[/url]
+Portions of this software are copyright © 2022 The FreeType Project (www.freetype.org). All rights reserved.
+
+
+"
+text = "
+Creator: LyffLyff
+
+Assets:
+Icons by roundicons
+Blur Shader by shellrider
+
+Fonts:
+OpenSans
+Raleway
+
+Engine:
+Godot Engine
+Portions of this software are copyright © 2022 The FreeType Project (www.freetype.org). All rights reserved.
+
+
+"
