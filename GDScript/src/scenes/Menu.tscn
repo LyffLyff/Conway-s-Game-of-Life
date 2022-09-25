@@ -42,32 +42,32 @@ rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Patterns" type="Button" parent="Menu/PanelContainer/VBoxContainer/Header"]
-margin_left = 182.0
-margin_top = 5.0
-margin_right = 257.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 75, 30 )
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 1 )
-text = "Patterns"
-
 [node name="Shortcuts" type="Button" parent="Menu/PanelContainer/VBoxContainer/Header"]
-margin_left = 261.0
+margin_left = 167.0
 margin_top = 5.0
-margin_right = 336.0
+margin_right = 252.0
 margin_bottom = 35.0
-rect_min_size = Vector2( 75, 30 )
+rect_min_size = Vector2( 85, 30 )
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 1 )
 text = "Shorcuts"
 
-[node name="Credits" type="Button" parent="Menu/PanelContainer/VBoxContainer/Header"]
-margin_left = 340.0
+[node name="Explanation" type="Button" parent="Menu/PanelContainer/VBoxContainer/Header"]
+margin_left = 256.0
 margin_top = 5.0
-margin_right = 415.0
+margin_right = 341.0
 margin_bottom = 35.0
-rect_min_size = Vector2( 75, 30 )
+rect_min_size = Vector2( 85, 30 )
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "Explanation"
+
+[node name="Credits" type="Button" parent="Menu/PanelContainer/VBoxContainer/Header"]
+margin_left = 345.0
+margin_top = 5.0
+margin_right = 430.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 85, 30 )
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 1 )
 text = "Credits"

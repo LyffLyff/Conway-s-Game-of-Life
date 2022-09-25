@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "StringDecode",
+"language": "GDScript",
+"path": "res://src/scenes/classes/StringDecode.gd"
+} ]
+_global_script_class_icons={
+"StringDecode": ""
+}
+
 [application]
 
 config/name="Conway's Game Of Life"
@@ -18,7 +28,7 @@ config/icon="res://icon.png"
 
 common/drop_mouse_on_gui_input_disabled=true
 theme/custom="res://src/assets/themes/MinimalUI.tres"
-theme/custom_font="res://src/assets/fonts/RalewayBold.tres"
+theme/custom_font="res://src/assets/fonts/SmallText.tres"
 
 [input]
 

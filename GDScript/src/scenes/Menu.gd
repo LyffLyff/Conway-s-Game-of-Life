@@ -6,19 +6,19 @@ onready var option_buttons : HBoxContainer = $PanelContainer/VBoxContainer/Heade
 
 #PRELOADS
 var options : Array = [
-	preload("res://src/scenes/MenuOptions/Patterns.tscn"),
 	preload("res://src/scenes/MenuOptions/Shortcuts.tscn"),
+	preload("res://src/scenes/MenuOptions/Explanation.tscn"),
 	preload("res://src/scenes/MenuOptions/Credits.tscn")
 ]
 
 
 func _ready():
 	for i in option_buttons.get_child_count():
-		option_buttons.get_child(i).connect("pressed",self,"load_option",[i])
+		var _err = option_buttons.get_child(i).connect("pressed",self,"load_option",[i])
 	load_option(0)
 
 
-func _process(delta):
+func _process(var _delta  ):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_parent().queue_free()
 

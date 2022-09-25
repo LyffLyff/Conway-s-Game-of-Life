@@ -12,12 +12,13 @@ bbcode_enabled = true
 bbcode_text = "
 [center]
 [table=2]
+[cell]Toggle Simulation:[/cell][cell]B KEY[/cell]
+[cell]Revert to Gen 1:[/cell][cell]R KEY[/cell]
 [cell]Next Generation:[/cell][cell]SPACE KEY[/cell]
-[cell]Start/Stop Simulation:[/cell][cell]S KEY[/cell]
-[cell]Set Cell:[/cell][cell]MOUSE LEFT[/cell]
-[cell]Delete Cell:[/cell][cell]MOUSE RIGHT[/cell]
 [cell]Clear Grid:[/cell][cell]C KEY[/cell]
+[cell]Add Cell:[/cell][cell]MOUSE LEFT[/cell]
+[cell]Delete Cell:[/cell][cell]MOUSE RIGHT[/cell]
 [/table][/center]"
 text = "
 
-Next Generation:SPACE KEYStart/Stop Simulation:S KEYSet Cell:MOUSE LEFTDelete Cell:MOUSE RIGHTClear Grid:C KEY"
+Toggle Simulation:B KEYRevert to Gen 1:R KEYNext Generation:SPACE KEYClear Grid:C KEYAdd Cell:MOUSE LEFTDelete Cell:MOUSE RIGHT"

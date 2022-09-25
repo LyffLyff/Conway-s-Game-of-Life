@@ -2,9 +2,22 @@
 
 [ext_resource path="res://src/assets/fonts/SmallText.tres" type="DynamicFont" id=1]
 
-[node name="Credits" type="RichTextLabel"]
+[node name="Credits" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Left" type="Control" parent="."]
+margin_right = 10.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="Credits" type="RichTextLabel" parent="."]
+margin_left = 14.0
+margin_right = 1010.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/normal_font = ExtResource( 1 )
@@ -43,3 +56,10 @@ Portions of this software are copyright © 2022 The FreeType Project (www.freety
 
 
 "
+
+[node name="Right" type="Control" parent="."]
+margin_left = 1014.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3

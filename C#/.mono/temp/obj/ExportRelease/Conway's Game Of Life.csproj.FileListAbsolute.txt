@@ -1,0 +1,9 @@
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\bin\ExportRelease\Conway's Game Of Life.dll
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\bin\ExportRelease\Conway's Game Of Life.pdb
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\obj\ExportRelease\Conway's Game Of Life.csproj.AssemblyReference.cache
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\obj\ExportRelease\Conway's Game Of Life.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\obj\ExportRelease\Conway's Game Of Life.AssemblyInfoInputs.cache
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\obj\ExportRelease\Conway's Game Of Life.AssemblyInfo.cs
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\obj\ExportRelease\Conway's Game Of Life.csproj.CoreCompileInputs.cache
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\obj\ExportRelease\Conway's Game Of Life.dll
+C:\Users\hinte\MEGA\GodotProjects\Conway's Game Of Life\C#\.mono\temp\obj\ExportRelease\Conway's Game Of Life.pdb

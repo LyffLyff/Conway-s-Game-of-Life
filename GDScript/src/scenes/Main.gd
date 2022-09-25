@@ -14,6 +14,7 @@ onready var wrld : TileMap = $World
 onready var cam : Camera2D = $View
 onready var play : TextureButton = $MainUI/MainUI/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Play
 onready var gen_amount : Label = $MainUI/MainUI/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/HBoxContainer/GenAmount
+onready var main_ui : MarginContainer = $MainUI/MainUI
 onready var top_ui : CanvasLayer = $TopUI
 
 
@@ -30,22 +31,26 @@ var gen : int = 1
 var running : bool = false
 var birthed_cells : PoolVector2Array = []
 var killed_cells : PoolVector2Array = []
+var gen1 : PoolVector2Array = []
 var cells_to_check : Array = []
 var living_cells : Array = []
+var show_grid : bool = true
 
 
 func _draw():
-	var size = get_viewport_rect().size  * cam.zoom / 2
-	var cam_pos = cam.offset
-	var neg_diff : Vector2 = cam_pos - size
-	var pos_diff : Vector2 = cam_pos + size
-	for i in range(neg_diff.x - 1, pos_diff.x + 1):
-		draw_line(Vector2(i * 1, pos_diff.y + 100), Vector2(i * 1, neg_diff.y - 100), "222222")
-	for i in range(neg_diff.y - 1, pos_diff.y + 1):
-		draw_line(Vector2(pos_diff.x + 100, i * 1), Vector2(neg_diff.x - 100, i * 1), "222222")
+	if show_grid:
+		var size = get_viewport_rect().size  * cam.zoom / 2
+		var cam_pos = cam.offset
+		var neg_diff : Vector2 = cam_pos - size
+		var pos_diff : Vector2 = cam_pos + size
+		for i in range(neg_diff.x - 1, pos_diff.x + 1):
+			draw_line(Vector2(i * 1, pos_diff.y + 100), Vector2(i * 1, neg_diff.y - 100), "222222")
+		for i in range(neg_diff.y - 1, pos_diff.y + 1):
+			draw_line(Vector2(pos_diff.x + 100, i * 1), Vector2(neg_diff.x - 100, i * 1), "222222")
 
 
 func _ready():
+	main_ui.clr.set_pick_color(wrld.modulate - Color(0.5,0.5,0.5,0))
 	self.set_physics_process(false)
 
 
@@ -56,7 +61,6 @@ func _unhandled_input(event):
 			#Therefore the global mouse position is the actual tile
 			#but it's more accurate withz it sooooooo
 			#Draw with mouse
-			return
 			AddCell( wrld.world_to_map( get_global_mouse_position() ) )
 		elif Input.is_mouse_button_pressed(BUTTON_RIGHT):
 			var clicked_cell : Vector2 = wrld.world_to_map( get_global_mouse_position() )
@@ -79,17 +83,17 @@ func _unhandled_input(event):
 			match event.scancode:
 				KEY_SPACE:
 					#Advances by one Gen
-					self.set_physics_process(true)
+					_on_NextGen_pressed()
 				KEY_C:
 					#Clearing Grid
-					running = true
-					_on_Play_pressed()
+					ToggleSim(false)
 					self.ClearGrid()
-
-
-func _process(var delta : float):
-	if Input.is_action_pressed("AddCell"):
-		AddCell( wrld.world_to_map( get_global_mouse_position() ) )
+				KEY_R:
+					#Reset to Gen 1
+					RevertToGen1()
+				KEY_B:
+					#Starts Simulation
+					_on_Play_pressed()
 
 
 func _physics_process(var _delta : float):
@@ -134,16 +138,14 @@ func BirthCell(var pos : Vector2) -> void:
 
 func AddCell(var pos : Vector2) -> void:
 	#Adds the cell directly and doesn't need to wait for next gen
-	gen = 1
-	gen_amount.set_text(str(gen))
-	living_cells.push_back(pos)
-	wrld.set_cellv(pos,0)
+	if !living_cells.has(pos):
+		living_cells.push_back(pos)
+		wrld.set_cellv(pos,0)
 
 
 func DeleteCell(var pos : Vector2) -> void:
 	#Deletes the living cell without waiting for the next generation
-	gen = 1
-	gen_amount.set_text(str(gen))
+	ResetGen()
 	wrld.set_cellv(pos,-1)
 	living_cells.erase(pos)
 
@@ -187,8 +189,10 @@ func GetNeighbours(var pos : Vector2) -> int:
 			if x == 0 && y == 0:
 				continue;
 				
-			if wrld.get_cell(pos.x + x, pos.y + y) != -1:
+			if wrld.get_cellv( pos + Vector2(x,y) ) != -1:
 				neighbours += 1
+			if neighbours > 3:
+				return neighbours
 	return neighbours
 
 
@@ -199,24 +203,47 @@ func ClearGrid() -> void:
 	wrld.clear()
 
 
-func _on_Start_pressed():
-	running = true
-	self.set_physics_process(true)
+func RevertToGen1() -> void:
+	SetPattern(gen1)
 
 
-func _on_Stop_pressed():
-	self.set_physics_process(false)
-	running = false
+func SetPattern(var new_living_cells : PoolVector2Array) -> void:
+	ToggleSim(false)
+	ClearGrid()
+	for cell in new_living_cells:
+		AddCell(cell)
+
+
+func ToggleGrid() -> void:
+	show_grid = !show_grid
+	update()
+
+
+func ResetGen() -> void:
+	gen = 1
+	gen1 = living_cells
+	gen_amount.set_text(str(gen))
+
+
+func ToggleSim(var toggle : bool) -> void:
+	running = toggle
+	if running:
+		ResetGen()
+	self.set_physics_process(toggle)
+	play.texture_normal = play_textures[int(running)]
 
 
 func _on_Play_pressed():
-	gen = 1
 	running = !running
+	if running:
+		ResetGen()
 	self.set_physics_process(running)
 	play.texture_normal = play_textures[int(running)]
 
 
 func _on_NextGen_pressed():
+	if gen == 1:
+		ResetGen()
 	self.set_physics_process(true)
 
 
@@ -225,10 +252,18 @@ func _on_Settings_pressed():
 	running = true
 	_on_Play_pressed()
 	cam.set_process(false)
+	self.set_process(false)
+	self.set_process_input(false)
+	wrld.set_process_input(false)
 	cam.set_process_input(false)
 	
 	#Loading Menu
 	var menu : Control = load("res://src/scenes/Menu.tscn").instance()
 	var _err = menu.connect("tree_exited",cam,"set_process",[true])
 	_err = menu.connect("tree_exited",cam,"set_process_input",[true])
+	_err = menu.connect("tree_exited",self,"set_process_input",[true])
 	top_ui.add_child(menu)
+
+
+func _on_CellClr_color_changed(var clr : Color):
+	wrld.modulate = Color(0.5,0.5,0.5,0.5) + clr

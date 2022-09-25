@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/scenes/MenuOptions/Explanation.gd" type="Script" id=1]
+
+[node name="Explanation" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="Left" type="Control" parent="."]
+margin_right = 10.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[node name="Explanation" type="RichTextLabel" parent="."]
+margin_left = 14.0
+margin_right = 1010.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "
+[center]Conway's Game of Life is the most well known so called [url=https://en.wikipedia.org/wiki/Cellular_automaton]Cellular automaton[/url].
+It consists of an infinite grid, where each cell can either be alive or dead.
+Each cell follows simple rules:
+
+[table=2]
+[cell]1.)[/cell][cell]Any live cell with fewer than two live neighbours dies, as if caused by underpopulation[/cell]
+[cell]2.)[/cell][cell]Any live cell with two or three live neighbours lives on to the next generation[/cell]
+[cell]3.)[/cell][cell]Any live cell with more than three live neighbours dies, as if by overpopulation[/cell]
+[cell]4.)[/cell][cell]Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction[/cell]"
+text = "
+Conway's Game of Life is the most well known so called Cellular automaton.
+It consists of an infinite grid, where each cell can either be alive or dead.
+Each cell follows simple rules:
+
+1.)Any live cell with fewer than two live neighbours dies, as if caused by underpopulation2.)Any live cell with two or three live neighbours lives on to the next generation3.)Any live cell with more than three live neighbours dies, as if by overpopulation4.)Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction"
+
+[node name="Right" type="Control" parent="."]
+margin_left = 1014.0
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 3
+
+[connection signal="meta_clicked" from="Explanation" to="." method="_on_Explanation_meta_clicked"]
