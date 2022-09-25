@@ -23,14 +23,14 @@ func _input(event):
 
 func _process(var _delta : float):
 	if Input.is_action_pressed("ui_down"):
-		get_parent().update()
 		self.offset.y += 0.5 * zoom.x * 10
+		get_parent().update()
 	if Input.is_action_pressed("ui_up"):
-		get_parent().update()
 		self.offset.y -= 0.5 * zoom.x * 10
+		get_parent().update()
 	if Input.is_action_pressed("ui_left"):
-		get_parent().update()
 		self.offset.x -= 0.5 * zoom.x * 10
-	if Input.is_action_pressed("ui_right"):
 		get_parent().update()
+	if Input.is_action_pressed("ui_right"):
 		self.offset.x += 0.5 * zoom.x * 10
+		get_parent().update()

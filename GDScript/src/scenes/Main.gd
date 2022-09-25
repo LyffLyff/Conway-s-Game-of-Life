@@ -50,6 +50,7 @@ func _draw():
 
 
 func _ready():
+	wrld.clear()
 	main_ui.clr.set_pick_color(wrld.modulate - Color(0.5,0.5,0.5,0))
 	self.set_physics_process(false)
 

@@ -44,17 +44,22 @@ modulate = Color( 1.42353, 0.627451, 0.32549, 1 )
 tile_set = SubResource( 1 )
 cell_size = Vector2( 1, 1 )
 cell_quadrant_size = 1
-cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 cell_tile_origin = 1
 centered_textures = true
 format = 1
-tile_data = PoolIntArray( 10354655, 0, 0, 10354656, 0, 0, 10354657, 0, 0, 10354658, 0, 0, 10354659, 0, 0, 10354660, 0, 0, 10354661, 0, 0, 10354662, 0, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="View" type="Camera2D" parent="."]
 current = true
 zoom = Vector2( 0.05, 0.05 )
 process_mode = 0
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="MainUI" type="CanvasLayer" parent="."]
 
