@@ -138,6 +138,7 @@ func BirthCell(var pos : Vector2) -> void:
 
 func AddCell(var pos : Vector2) -> void:
 	#Adds the cell directly and doesn't need to wait for next gen
+	gen = 1
 	if !living_cells.has(pos):
 		living_cells.push_back(pos)
 		wrld.set_cellv(pos,0)
@@ -145,7 +146,7 @@ func AddCell(var pos : Vector2) -> void:
 
 func DeleteCell(var pos : Vector2) -> void:
 	#Deletes the living cell without waiting for the next generation
-	ResetGen()
+	gen = 1
 	wrld.set_cellv(pos,-1)
 	living_cells.erase(pos)
 
